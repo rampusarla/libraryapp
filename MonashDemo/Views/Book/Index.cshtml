@@ -1,0 +1,56 @@
+﻿@model PagedList.IPagedList<MonashDemo.Core.Models.Book>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+
+@{
+    ViewBag.Title = "List of All Books";
+}
+
+<h2>List of All Books</h2>
+
+@using (Html.BeginForm("Index", "Book", FormMethod.Get))
+{
+    <p>
+        Search by Book Title/Author: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)  
+        <input type="submit" value="Search" /></p>
+}
+
+
+<table class="table">
+    <tr>        
+        <th>            
+            @Html.ActionLink("Book Title", "Index", new {sortOrder = ViewBag.TitleSortParam, currentFilter=ViewBag.CurrentFilter})
+        </th>
+        <th>            
+            @Html.ActionLink("Book Author", "Index", new {sortOrder = ViewBag.AuthorSortParm, currentFilter=ViewBag.CurrentFilter})
+        </th>
+        <th>
+            Is Borrowed ?
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>        
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Author)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsBorrowed)
+        </td>        
+    </tr>
+}
+
+</table>
+<br />
+@if(Model.PageCount > 1)
+{
+<p>Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount</p>
+
+@Html.PagedListPager(Model, page => Url.Action("Index", 
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+}

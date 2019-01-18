@@ -1,0 +1,56 @@
+﻿@model MonashDemo.Core.Models.Borrower
+@using MonashDemo.Core.Errors;
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create a new Borrower</h2>
+
+
+@using (Html.BeginForm()) 
+{
+    
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <h4>Borrower</h4>
+        <hr />
+        @Html.ValidationSummary(true)                
+        @Html.ValidationMessage(ErrorMessages.BorrowerAlreadyExistsHeading)
+        @Html.ValidationMessage(ErrorMessages.BookNotFoundHeading)
+        @Html.ValidationMessage(ErrorMessages.BorrowerNotFoundHeading)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.FirstName, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FirstName)
+                @Html.ValidationMessageFor(model => model.FirstName)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.LastName, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.LastName)
+                @Html.ValidationMessageFor(model => model.LastName)
+            </div>
+        </div>
+
+        <div class="form-group form-inline">
+            <div class="col-md-6">
+                <input type="submit" value="Create" class="btn btn-primary btn-md col-md-offset-2 col-md-4" />                            
+                @Html.ActionLink("Cancel","Index","Borrower",null, new {@class="btn btn-danger btn-md col-md-offset-2 col-md-4 "})
+            </div>        
+        </div>
+        
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/Scripts/validation.js"></script>

@@ -1,0 +1,41 @@
+﻿@model IEnumerable<MonashDemo.Core.Models.Book>
+
+@{
+    ViewBag.Title = "List of Overdue Books (Borrowed more than 1 week ago)";
+}
+
+<h2>List of Overdue Books (Borrowed more than 1 week ago)</h2>
+
+<table class="table">
+    <tr>
+        
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Author)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateBorrowed)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Author)
+        </td>
+        <td>
+            @item.DateBorrowed.ToString("dd-MMM-yyyy")
+        </td>
+                
+    </tr>
+}
+
+</table>
+<br />

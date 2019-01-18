@@ -1,0 +1,12 @@
+﻿@model MonashDemo.Core.ViewModels.ErrorViewModel
+
+@{
+    ViewBag.Title = "No Books to Borrow";
+}
+
+<h2 style="color: red; font-weight: bold">@Model.ErrorHeading</h2>
+<br />
+<p style="color: red;">@Model.ErrorMessage</p>
+
+@Html.ActionLink("Back to previous page", null, null, null, new { href = Request.UrlReferrer})
+
